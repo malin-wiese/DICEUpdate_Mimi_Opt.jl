@@ -1,92 +1,82 @@
-# OptMimiDICE2016R2
+# MimiDICE2016R2
+ 
+This repository is a work-in-progress implementation of the DICE 2016R2 model, originally created in GAMS and described [here](https://sites.google.com/site/williamdnordhaus/dice-rice) and in the following paper:
 
+Nordhaus, William. 2018. "Projections and Uncertainties about Climate Change in an Era of Minimal Climate Policies." American Economic Journal: Economic Policy, 10 (3): 333-60.
 
+**As of now this is a WIP, as we are still working on getting testing of our outputs to properly match the outputs of the GAMS model runs. Anyone interested in helping with this effort is encouraged to reach out!**
 
-## Getting started
+As described in  Nordhaus, William. 2018. "Projections and Uncertainties about Climate Change in an Era of Minimal Climate Policies." American Economic Journal: Economic Policy, 10 (3): 333-60 the only difference between the difference between this repository and [MimiDICE2016]() is the damage function parameter setting of the `a2` damage quadratic term parameter to 0.0027 as opposed to 0.00236 as set in DICE2016R.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Software Requirements
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+You need to install [Julia 1.1.0](https://julialang.org) or newer to run this model. You can download Julia from http://julialang.org/downloads/.
 
-## Add your files
+## Preparing the Software Environment
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+To install MimiDICE2016R2.jl, you need to run the following command at the julia package REPL:
 
+```julia
+pkg> add https://github.com/anthofflab/MimiDICE2016R2.jl
 ```
-cd existing_repo
-git remote add origin https://gitlab.dkrz.de/m300940/optmimidice2016r2.git
-git branch -M main
-git push -uf origin main
+
+You probably also want to install the Mimi package into your julia environment, so that you can use some of the tools in there:
+
+```julia
+pkg> add Mimi
+```
+## Running the model
+
+The model uses the Mimi framework and it is highly recommended to read the Mimi documentation first to understand the code structure. For starter code on running the model just once, see the code in the file `examples/main.jl`.
+
+The basic way to access a copy of the default MimiDICE2016R2 model is the following:
+```
+using MimiDICE2016R2
+
+m = MimiDICE2016R2.get_model()
+run(m)
 ```
 
-## Integrate with your tools
+## Calculating the Social Cost of Carbon
 
-- [ ] [Set up project integrations](https://gitlab.dkrz.de/m300940/optmimidice2016r2/-/settings/integrations)
+Here is an example of computing the social cost of carbon with MimiDICE2016R2. Note that the units of the returned value are 2010US$/tCO2.
+```
+using Mimi
+using MimiDICE2016R2
 
-## Collaborate with your team
+# Get the social cost of carbon in year 2020 from the default MimiDICE2016R2 model:
+scc = MimiDICE2016R2.compute_scc(year = 2020)
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+# You can also compute the SCC from a modified version of a MimiDICE2016R2 model:
+m = MimiDICE2016R2.get_model()    # Get the default version of the MimiDICE2016R2 model
+update_param!(m, :t2xco2, 5)    # Try a higher climate sensitivity value
+scc = MimiDICE2016R2.compute_scc(m, year = 2020)    # compute the scc from the modified model by passing it as the first argument to compute_scc
+```
+The first argument to the `compute_scc` function is a MimiDICE2016R2 model, and it is an optional argument. If no model is provided, the default MimiDICE2016R2 model will be used. 
+There are also other keyword arguments available to `compute_scc`. Note that the user must specify a `year` for the SCC calculation, but the rest of the keyword arguments have default values.
+```
+compute_scc(m = get_model(),  # if no model provided, will use the default MimiDICE2016R2 model
+    year = nothing,  # user must specify an emission year for the SCC calculation
+    last_year = 2510,  # the last year to run and use for the SCC calculation. Default is the last year of the time dimension, 2510.
+    prtp = 0.03,  # pure rate of time preference parameter used for constant discounting
+)
+```
+There is an additional function for computing the SCC that also returns the MarginalModel that was used to compute it. It returns these two values as a NamedTuple of the form (scc=scc, mm=mm). The same keyword arguments from the `compute_scc` function are available for the `compute_scc_mm` function. Example:
+```
+using Mimi
+using MimiDICE2016R2
 
-## Test and Deploy
+result = MimiDICE2016R2.compute_scc_mm(year=2030, last_year=2300, prtp=0.025)
 
-Use the built-in continuous integration in GitLab.
+result.scc  # returns the computed SCC value
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+result.mm   # returns the Mimi MarginalModel
 
-***
+marginal_temp = result.mm[:climatedynamics, :TATM]  # marginal results from the marginal model can be accessed like this
+```
 
-# Editing this README
+### Pulse Size Details
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+By default, MimiDICE2016R2 will calculate the SCC using a marginal emissions pulse of 5 GtCO2 spread over five years, or 1 GtCO2 per year for five years.  The SCC will always be returned in $ per ton CO2 since is normalized by this pulse size. This choice of pulse size and duration is a decision made based on experiments with stability of results and moving from continuous to discretized equations, and can be found described further in the literature around DICE.
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+For a deeper dive into the machinery of this function, see the forum conversation [here](https://forum.mimiframework.org/t/mimifund-emissions-pulse/153/9), which is focused on MimiFUND but has similar internal machinery to MimiDICE2016R2, and the docstrings in `marginaldamage.jl`.
