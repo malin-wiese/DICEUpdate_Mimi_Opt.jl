@@ -1,4 +1,4 @@
-module MimiDICE2016R2
+module OptMimiDICE2016R2
 
 using Mimi
 using XLSX: readxlsx
@@ -17,8 +17,9 @@ include("components/climatedynamics_component.jl")
 include("components/damages_component.jl")
 include("components/neteconomy_component.jl")
 include("components/welfare_component.jl")
+include("optimise.jl")
 
-export constructdice, getdiceexcel
+export constructdice, get_model, optimise_model
 
 const model_years = 2015:5:2510
 
