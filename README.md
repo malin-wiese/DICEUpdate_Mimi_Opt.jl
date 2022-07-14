@@ -1,5 +1,13 @@
+# OptMimiDICE2016R2
+
+This repository is a clone of the [MimiDICE2016R2.jl](https://github.com/anthofflab/MimiDICE2016R2.jl) project by [anthofflab](https://github.com/anthofflab). As the name suggests, this version adds an optimisation routine to MimiDICE2016R2, which is located in src/optimise.jl. Due to package compatibility issues, I do not use the [OptiMimi](https://juliapackages.com/p/optimimi) framework, but instead I work with the [NLOpt](https://www.juliapackages.com/p/nlopt) package. This implementation is inspired by the [code](https://github.com/Environment-Research/Utilitarianism/blob/master/src/helper_functions.jl) for [Budolfson et al. (2021)](https://www.nature.com/articles/s41558-021-01130-6).
+
+Below, you find original README of [MimiDICE2016R2.jl](https://github.com/anthofflab/MimiDICE2016R2.jl):
+
+___
+
 # MimiDICE2016R2
- 
+
 This repository is a work-in-progress implementation of the DICE 2016R2 model, originally created in GAMS and described [here](https://sites.google.com/site/williamdnordhaus/dice-rice) and in the following paper:
 
 Nordhaus, William. 2018. "Projections and Uncertainties about Climate Change in an Era of Minimal Climate Policies." American Economic Journal: Economic Policy, 10 (3): 333-60.
