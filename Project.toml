@@ -1,4 +1,4 @@
-name = "MimiDICE2016R2"
+name = "OptMimiDICE2016R2"
 uuid = "f1883be1-2b67-40c7-aa52-23bf8bdba39c"
 authors = ["AlexandrePavlov <54249238+AlexandrePavlov@users.noreply.github.com>"]
 version = "0.1.1-DEV"
@@ -6,13 +6,14 @@ version = "0.1.1-DEV"
 [deps]
 Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
 Mimi = "e4e893b0-ee5e-52ea-8111-44b3bdec128c"
+NLopt = "76087f3c-5699-56af-9a33-bf431cd00edd"
 XLSX = "fdbf4ff8-1666-58a4-91e7-1b58723a45e0"
 
 [compat]
 Distributions = "0.23, 0.24, 0.25"
 Mimi = "1"
-julia = "1.5"
 XLSX = "0.7.2"
+julia = "1.5"
 
 [extras]
 CSVFiles = "5d742f6a-9f54-50ce-8119-2520741973ca"
