@@ -1,15 +1,14 @@
-# Provisional Documentation
+# Changes from MimiDICE2016R2
 
-This is the mandatory `index.md` file that is the homepage of the documentation.
+These functions were included for optimising OptMimiDICE2016R2:
 
-Here the documentation string of a function is expanded:
-```@docs
-dummy_project_function
+```@autodocs
+Modules = [] # include OptMimiDICE2016R2
+Order   = [:function]
 ```
 
-We can link to any subsection name with [Subsection name](@ref).
-
-We can link to documentation strings with [`dummy_project_function`](@ref).
-
-Test.
-## Subsection name
+```@docs
+OptMimiDICE2016R2.get_model
+optimise_model
+construct_objective
+```

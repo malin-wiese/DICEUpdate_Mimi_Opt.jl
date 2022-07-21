@@ -1,24 +1,28 @@
 using NLopt
+using Mimi
 
 # INSPIRED BY 'Utilitarian Benchmarks for Emissions and Pledges Promote Equity, Climate, and Development.'
 # (https://github.com/Environment-Research/Utilitarianism/blob/master/src/helper_functions.jl)
 
 """
-    optimise_model(mD16::Model=get_model(), n_objectives::Int=length(model_years), stop_time::Int=640, tolerance::Float64=1e-6, optimization_algorithm::Symbol=:LN_SBPLX) -> mD16::Model
+    optimise_model(m::Model=get_model(), n_objectives::Int=length(model_years), stop_time::Int=640, tolerance::Float64=1e-6, optimization_algorithm::Symbol=:LN_SBPLX) -> m::Model
     
-Optimise DICE2016R2 model instance `mD16` and return the optimised and updated model.
+Optimise DICE2016R2 model instance `m` and return the optimised and updated model.
 
-`mD16` is not a mandatory argument. In case it is not provided, the function will use a newly constructed model from [`get_model`](@ref). It is worth manually passing a model instance if one wishes to optimise a modified version of DICE, e.g. with updated parameters or updated components.
+The model instance `m` is not a mandatory argument. In case it is not provided, the function will use a newly constructed model from [`OptMimiDICE2016R2.get_model`](@ref). It is worth manually passing a model instance if one wishes to optimise a modified version of DICE, e.g. with updated parameters or updated components.
 
 ## Keyword arguments:
 - `n_objectives`: number of objectives, which corresponds to the number of time steps in the model
-- `stop_time`: time in seconds after which optimisation routine, passed to [`ftol_rel!`](@ref)
-- `tolerance`: tolerance requirement passed to [`ftol_rel!`](@ref)
-- `optimization_algorithm`: algorithm passed to [`ftol_rel!`](@ref)
+- `stop_time`: time in seconds after which optimisation routine, passed to `NLopt.ftol_rel!`
+- `tolerance`: tolerance requirement passed to `NLopt.ftol_rel!`
+- `optimization_algorithm`: algorithm passed to `NLopt.ftol_rel!`
+
+## Notes
+Importantly, this implementation of DICE2016R2 has no restrictions on NETs. A rate of emissions reduction `:MIU` of up to 1.2 is allowed throughout.
 
 See also [`construct_objective`](@ref).
 """
-function optimise_model(mD16::Model=get_model(), n_objectives::Int=length(model_years), stop_time::Int=640, tolerance::Float64=1e-6, optimization_algorithm::Symbol=:LN_SBPLX)
+function optimise_model(m::Model=get_model(), n_objectives::Int=length(model_years), stop_time::Int=640, tolerance::Float64=1e-6, optimization_algorithm::Symbol=:LN_SBPLX)
     # Create lower bound
     lower_bound = zeros(n_objectives)     
     # Create upper bound    
@@ -35,7 +39,7 @@ function optimise_model(mD16::Model=get_model(), n_objectives::Int=length(model_
     upper_bounds!(opt, upper_bound)
     
     # Assign the objective function to maximize.
-    max_objective!(opt, (x, grad) -> construct_objective(mD16, x))
+    max_objective!(opt, (x, grad) -> construct_objective(m, x))
     
     # Set termination time.
     maxtime!(opt, stop_time)
@@ -46,19 +50,19 @@ function optimise_model(mD16::Model=get_model(), n_objectives::Int=length(model_
     # Optimize model.
     maximum_objective_value, optimised_policy_vector, convergence_result = optimize(opt, starting_point)
     
-    return mD16
+    return m
 end
     
 """
-    construct_objective(mD16::Model, optimised_mitigation::Array{Float64,1}) -> mD16[:welfare, :UTILITY]
+    construct_objective(m::Model, optimised_mitigation::Array{Float64,1}) -> m[:welfare, :UTILITY]
 
-Updates emissions control rate `:MIU` in model `mD16` and returns the resulting utility vector. This function is called by `optimise_model`[@ref]. `optimised_mitigation` is a vector of `:MIU` values that is being optimised.
+Updates emissions control rate `:MIU` in model `m` and returns the resulting utility vector. This function is called by [`optimise_model`](@ref). `optimised_mitigation` is a vector of `:MIU` values that is being optimised.
 
 See also [`optimise_model`](@ref).
 """
-function construct_objective(mD16::Model, optimised_mitigation::Array{Float64,1})
+function construct_objective(m::Model, optimised_mitigation::Array{Float64,1})
     # update MIU (abatement variable) and re-build model to evaluate welfare effects
-    update_param!(mD16, :MIU, optimised_mitigation)
-    run(mD16)
-    return mD16[:welfare, :UTILITY]
+    update_param!(m, :MIU, optimised_mitigation)
+    run(m)
+    return m[:welfare, :UTILITY]
 end

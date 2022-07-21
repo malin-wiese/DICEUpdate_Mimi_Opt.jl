@@ -101,6 +101,11 @@ function getdiceexcel(;datafile = joinpath(dirname(@__FILE__), "..", "data", "DI
 end
 
 # get_model function for standard Mimi API: use the Excel version
+"""
+    get_model -> m::Model
+
+Gets model as in standard Mimi API.
+"""
 get_model = getdiceexcel
 
 include("mcs.jl")
