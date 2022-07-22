@@ -1,12 +1,14 @@
 name = "OptMimiDICE2016R2"
 uuid = "f1883be1-2b67-40c7-aa52-23bf8bdba39c"
-authors = ["AlexandrePavlov <54249238+AlexandrePavlov@users.noreply.github.com>"]
+authors = ["AlexandrePavlov <54249238+AlexandrePavlov@users.noreply.github.com>",
+           "Felix Schaumann <109044237+felixschaumann@users.noreply.github.com>"]
 version = "0.1.1-DEV"
 
 [deps]
 CSVFiles = "5d742f6a-9f54-50ce-8119-2520741973ca"
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
+DrWatson = "634d3b9d-ee7a-5ddf-bec9-22491ea816e1"
 Mimi = "e4e893b0-ee5e-52ea-8111-44b3bdec128c"
 NLopt = "76087f3c-5699-56af-9a33-bf431cd00edd"
 XLSX = "fdbf4ff8-1666-58a4-91e7-1b58723a45e0"

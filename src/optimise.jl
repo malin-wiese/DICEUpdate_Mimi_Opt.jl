@@ -5,7 +5,7 @@ using Mimi
 # (https://github.com/Environment-Research/Utilitarianism/blob/master/src/helper_functions.jl)
 
 """
-    optimise_model(m::Model=get_model(), n_objectives::Int=length(model_years), stop_time::Int=640, tolerance::Float64=1e-6, optimization_algorithm::Symbol=:LN_SBPLX) -> m::Model
+    optimise_model(m::Model=get_model(), n_objectives::Int=length(model_years), stop_time::Int=640, tolerance::Float64=1e-6, optimization_algorithm::Symbol=:LN_SBPLX) -> m::Model, diagnostic::Dict
     
 Optimise DICE2016R2 model instance `m` and return the optimised and updated model.
 
@@ -18,19 +18,19 @@ The model instance `m` is not a mandatory argument. In case it is not provided, 
 - `optimization_algorithm`: algorithm passed to `NLopt.ftol_rel!`
 
 ## Notes
-Importantly, this implementation of DICE2016R2 has no restrictions on NETs. A rate of emissions reduction `:MIU` of up to 1.2 is allowed throughout.
+- Importantly, this implementation of DICE2016R2 has no restrictions on NETs. A rate of emissions reduction `:MIU` of up to 1.2 is allowed throughout.
+- The second return value is purely for diagnostic purposes and comes directly from the NLopt optimisation. In normal usage, it can be disregarded.
 
 See also [`construct_objective`](@ref).
 """
-function optimise_model(m::Model=get_model(), n_objectives::Int=length(model_years), stop_time::Int=640, tolerance::Float64=1e-6, optimization_algorithm::Symbol=:LN_SBPLX)
+function optimise_model(m::Model=get_model(); n_objectives::Int=length(model_years), stop_time::Int=640, tolerance::Float64=1e-6, optimization_algorithm::Symbol=:LN_SBPLX)
     # Create lower bound
     lower_bound = zeros(n_objectives)     
     # Create upper bound    
     upper_bound = 1.2 .* ones(n_objectives)                                                     # upper limit 1.2, however in GAMS code this only applies after 2150!
     
     # Create initial condition for algorithm (set at 50% of upper bound).
-    # starting_point = upper_bound ./ 2
-    starting_point = ones(n_objectives) .* 0.03 # 0.03 for the baseline and as start for optimised run (miu0 in GAMS code)
+    starting_point = ones(n_objectives) .* 0.03 # 0.03 as a start for the baseline and for optimised run (miu0 in GAMS code)
     
     opt = Opt(optimization_algorithm, n_objectives)
     
@@ -50,7 +50,11 @@ function optimise_model(m::Model=get_model(), n_objectives::Int=length(model_yea
     # Optimize model.
     maximum_objective_value, optimised_policy_vector, convergence_result = optimize(opt, starting_point)
     
-    return m
+    diagnostic = Dict([("Maximum objective value", maximum_objective_value),
+                       ("Optimised policy vector", optimised_policy_vector),
+                       ("Convergence result", convergence_result)])
+
+    return m, diagnostic
 end
     
 """
