@@ -16,7 +16,7 @@ using Main.OptMimiDICE2016R2: getparams
     @testset "OptMimiDICE2016R2-model" begin
 
 
-        df = load(joinpath(@__DIR__, "../data/DICE2016-R2-GAMSoutputs.csv")) |> DataFrame
+        df = load(joinpath(@__DIR__, "../data/Dice2016-R2-GAMSoutputs.csv")) |> DataFrame
 
         m = Main.OptMimiDICE2016R2.get_model();
         run(m)
