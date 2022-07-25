@@ -6,8 +6,7 @@ using Documenter
 # Here you may include files from the source directory
 include(srcdir("OptMimiDICE2016R2.jl"))
 include(srcdir("optimise.jl"))
-include(srcdir("marginaldamage.jl"))
-# include(srcdir("OptMimiDICE2016R2_copy.jl"))
+include(srcdir("marginaldamage.jl"))\
 
 @info "Building Documentation"
 makedocs(;
@@ -25,7 +24,7 @@ makedocs(;
 if CI
     deploydocs(
         # `repo` MUST be set correctly
-        repo = "https://github.com/felixschaumann/OptMimiDICE2016R2.jl.git",
+        repo = "github.com/felixschaumann/OptMimiDICE2016R2.jl.git",
         target = "build",
         push_preview = true,
         devbranch = "main",
