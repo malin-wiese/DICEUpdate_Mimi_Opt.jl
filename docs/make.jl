@@ -1,6 +1,7 @@
 CI = get(ENV, "CI", nothing) == "true" || get(ENV, "GITHUB_TOKEN", nothing) !== nothing
-using DrWatson, Documenter
+using DrWatson
 @quickactivate "OptMimiDICE2016R2"
+using Documenter
 
 # Here you may include files from the source directory
 include(srcdir("OptMimiDICE2016R2.jl"))
@@ -10,7 +11,7 @@ include(srcdir("marginaldamage.jl"))
 
 @info "Building Documentation"
 makedocs(;
-    sitename = "OptMimiDICE2016R2",
+    sitename = "OptMimiDICE2016R2.jl",
     # This argument is only so that the sequence of pages in the sidebar is configured
     # By default all markdown files in `docs/src` are expanded and included.
     pages = [
@@ -24,7 +25,7 @@ makedocs(;
 if CI
     deploydocs(
         # `repo` MUST be set correctly
-        repo = "https://github.com/felixschaumann/OptMimiDICE2016R2.git",
+        repo = "https://github.com/felixschaumann/OptMimiDICE2016R2.jl.git",
         target = "build",
         push_preview = true,
         devbranch = "main",
