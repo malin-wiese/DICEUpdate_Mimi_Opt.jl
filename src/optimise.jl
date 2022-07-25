@@ -5,21 +5,21 @@ using Mimi
 # (https://github.com/Environment-Research/Utilitarianism/blob/master/src/helper_functions.jl)
 
 """
-    optimise_model(m::Model=get_model(), n_objectives::Int=length(model_years), stop_time::Int=640, tolerance::Float64=1e-6, optimization_algorithm::Symbol=:LN_SBPLX) -> m::Model, diagnostic::Dict
+    optimise_model(m::Model=get_model(); kwargs) -> m::Model, diagnostic::Dict
     
 Optimise DICE2016R2 model instance `m` and return the optimised and updated model.
 
 The model instance `m` is not a mandatory argument. In case it is not provided, the function will use a newly constructed model from [`OptMimiDICE2016R2.get_model`](@ref). It is worth manually passing a model instance if one wishes to optimise a modified version of DICE, e.g. with updated parameters or updated components.
 
 ## Keyword arguments:
-- `n_objectives`: number of objectives, which corresponds to the number of time steps in the model
-- `stop_time`: time in seconds after which optimisation routine, passed to `NLopt.ftol_rel!`
-- `tolerance`: tolerance requirement passed to `NLopt.ftol_rel!`
-- `optimization_algorithm`: algorithm passed to `NLopt.ftol_rel!`
+- `n_objectives::Int=length(model_years)`: number of objectives, which corresponds to the number of time steps in the model
+- `stop_time::Int=640`: time in seconds after which optimisation routine stops, passed to `NLopt.ftol_rel!`
+- `tolerance::Float64=1e-6`: tolerance requirement passed to `NLopt.ftol_rel!`
+- `optimization_algorithm::Symbol=:LN_SBPLX`: algorithm passed to `NLopt.ftol_rel!`
 
 ## Notes
 - Importantly, this implementation of DICE2016R2 has no restrictions on NETs. A rate of emissions reduction `:MIU` of up to 1.2 is allowed throughout.
-- The second return value is purely for diagnostic purposes and comes directly from the NLopt optimisation. In normal usage, it can be disregarded.
+- The second return value is purely for diagnostic purposes and comes directly from the NLopt optimisation. In normal usage, it can be ignored.
 
 See also [`construct_objective`](@ref).
 """

@@ -6,7 +6,7 @@ using Documenter
 # Here you may include files from the source directory
 include(srcdir("OptMimiDICE2016R2.jl"))
 include(srcdir("optimise.jl"))
-include(srcdir("marginaldamage.jl"))\
+include(srcdir("marginaldamage.jl"))
 
 @info "Building Documentation"
 makedocs(;
@@ -14,8 +14,10 @@ makedocs(;
     # This argument is only so that the sequence of pages in the sidebar is configured
     # By default all markdown files in `docs/src` are expanded and included.
     pages = [
-        "index.md",
-    ],
+        "Introduction" => "index.md",
+        "Using OptMimiDICE2016R2" => "usage.md",
+        "API" => "API.md",
+        ],
     # Don't worry about what `CI` does in this line.
     format = Documenter.HTML(prettyurls = CI),
 )
