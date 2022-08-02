@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - opt_tests
     tags: '*'
   pull_request:
 concurrency:

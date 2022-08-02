@@ -27,6 +27,8 @@ function optimise_model(m::Model=get_model(); n_objectives::Int=length(model_yea
 
     n_objectives > length(model_years) ? error("Number of objectives can not be larger than number of timesteps in the model.") : nothing
 
+    n_objectives != length(m.md.dim_dict[:time]) ? error("Number of objectives must correspond to number of timesteps of given model m.") : nothing
+
     # Create lower bound
     lower_bound = zeros(n_objectives)     
     # Create upper bound    
