@@ -151,8 +151,7 @@ using Main.OptMimiDICE2016R2: getparams
     @testset "Optimisation API" begin
 
         # Test the errors
-        @test_throws ErrorException Main.OptMimiDICE2016R2.optimise(n_objectives=153)  # test that it errors if number of objectives is larger than number of time steps
-        @test_throws ErrorException Main.OptMimiDICE2016R2.optimise(n_objectives=45)  # test that it errors if number of objectives does not correspond to number time steps in m
+        @test_throws ErrorException Main.OptMimiDICE2016R2.optimise_model(n_objectives=45)  # test that it errors if number of objectives does not correspond to number time steps in m
         
         # Test the optimise_model output 
         result = Main.OptMimiDICE2016R2.optimise_model()

@@ -5,7 +5,7 @@ using Mimi
 # (https://github.com/Environment-Research/Utilitarianism/blob/master/src/helper_functions.jl)
 
 """
-    optimise_model(m::Model=get_model(); kwargs) -> m::Model, diagnostic::Dict
+    optimise_model(m::Model=get_model(); kwargs) -> (m::Model, diagnostic::Dict)
     
 Optimise DICE2016R2 model instance `m` and return the optimised and updated model.
 
@@ -24,8 +24,6 @@ The model instance `m` is not a mandatory argument. In case it is not provided, 
 See also [`construct_objective`](@ref).
 """
 function optimise_model(m::Model=get_model(); n_objectives::Int=length(model_years), stop_time::Int=640, tolerance::Float64=1e-6, optimization_algorithm::Symbol=:LN_SBPLX)
-
-    n_objectives > length(model_years) ? error("Number of objectives can not be larger than number of timesteps in the model.") : nothing
 
     n_objectives != length(m.md.dim_dict[:time]) ? error("Number of objectives must correspond to number of timesteps of given model m.") : nothing
 
