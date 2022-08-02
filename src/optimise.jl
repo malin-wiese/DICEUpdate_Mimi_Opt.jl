@@ -24,12 +24,15 @@ The model instance `m` is not a mandatory argument. In case it is not provided, 
 See also [`construct_objective`](@ref).
 """
 function optimise_model(m::Model=get_model(); n_objectives::Int=length(model_years), stop_time::Int=640, tolerance::Float64=1e-6, optimization_algorithm::Symbol=:LN_SBPLX)
+
+    n_objectives > length(model_years) ? error("Number of objectives can not be larger than number of timesteps in the model.") : nothing
+
     # Create lower bound
     lower_bound = zeros(n_objectives)     
     # Create upper bound    
     upper_bound = 1.2 .* ones(n_objectives)                                                     # upper limit 1.2, however in GAMS code this only applies after 2150!
     
-    # Create initial condition for algorithm (set at 50% of upper bound).
+    # Create initial condition for algorithm
     starting_point = ones(n_objectives) .* 0.03 # 0.03 as a start for the baseline and for optimised run (miu0 in GAMS code)
     
     opt = Opt(optimization_algorithm, n_objectives)
@@ -54,7 +57,7 @@ function optimise_model(m::Model=get_model(); n_objectives::Int=length(model_yea
                        ("Optimised policy vector", optimised_policy_vector),
                        ("Convergence result", convergence_result)])
 
-    return m, diagnostic
+    return (m = m, diagnostic = diagnostic)
 end
     
 """

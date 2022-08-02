@@ -144,6 +144,33 @@ using Main.OptMimiDICE2016R2: getparams
 
     end # SCC values testset
 
+    #------------------------------------------------------------------------------
+    #   4. Run tests on optimisation API
+    #------------------------------------------------------------------------------
+
+    @testset "Optimisation API" begin
+
+        # Test the errors
+        @test_throws ErrorException Main.OptMimiDICE2016R2.optimise(n_objectives=153)  # test that it errors if number of objectives is larger than number of time steps
+
+        # Test the optimise_model output 
+        result = Main.OptMimiDICE2016R2.optimise_model()
+        @test result.m isa Mimi.Model
+        @test result.diagnostic isa Dict
+
+        # Compare model with modified version (higher ECS, which should lead to more mitigation) 
+        m1 = Main.OptMimiDICE2016R2.optimise_model().m
+        m2 = Main.OptMimiDICE2016R2.get_model()
+        update_param!(m2, :climatedynamics, :t2xco2, 5)
+        m2 = Main.OptMimiDICE2016R2.optimise_model(m2).m
+        
+        miu_sum1 = sum(m1[:neteconomy, :MIU])
+        miu_sum2 = sum(m2[:neteconomy, :MIU])
+        
+        @test miu_sum1 < miu_sum2   # Test that a higher value of climate sensitivty increases mitigation efforts
+
+    end
+
 end #OptMimiDICE2016R2 testset
 
 nothing
