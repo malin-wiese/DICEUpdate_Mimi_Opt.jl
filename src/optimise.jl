@@ -57,6 +57,8 @@ function optimise_model(m::Model=get_model(); n_objectives::Int=length(model_yea
                        ("Optimised policy vector", optimised_policy_vector),
                        ("Convergence result", convergence_result)])
 
+    convergence_result == :FORCED_STOP ? error("Optimisation failed.") : nothing
+
     return (m = m, diagnostic = diagnostic)
 end
     
