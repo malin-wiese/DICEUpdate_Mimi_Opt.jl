@@ -23,9 +23,9 @@ The model instance `m` is not a mandatory argument. In case it is not provided, 
 
 See also [`construct_objective`](@ref).
 """
-function optimise_model(m::Model=get_model(); n_objectives::Int=length(model_years), stop_time::Int=640, tolerance::Float64=1e-6, optimization_algorithm::Symbol=:LN_SBPLX)
+function optimise_model(m::Model=get_model(); n_objectives::Int=length(model_years), stop_time::Int=640, tolerance::Float64=1e-6, optimization_algorithm::Symbol=:LN_SBPLX, backup_timesteps::Int=0)
 
-    n_objectives != length(m.md.dim_dict[:time]) ? error("Number of objectives must correspond to number of timesteps of given model m.") : nothing
+    n_objectives + backup_timesteps != length(m.md.dim_dict[:time]) ? error("Number of objectives must correspond to number of timesteps of given model m.") : nothing
 
     # Create lower bound
     lower_bound = zeros(n_objectives)     
@@ -42,7 +42,7 @@ function optimise_model(m::Model=get_model(); n_objectives::Int=length(model_yea
     upper_bounds!(opt, upper_bound)
     
     # Assign the objective function to maximize.
-    max_objective!(opt, (x, grad) -> construct_objective(m, x))
+    max_objective!(opt, (x, grad) -> construct_objective(m, x, backup_timesteps))
     
     # Set termination time.
     maxtime!(opt, stop_time)
@@ -69,9 +69,9 @@ Updates emissions control rate `:MIU` in model `m` and returns the resulting uti
 
 See also [`optimise_model`](@ref).
 """
-function construct_objective(m::Model, optimised_mitigation::Array{Float64,1})
+function construct_objective(m::Model, optimised_mitigation::Array{Float64,1}, backup_timesteps::Int=0)
     # update MIU (abatement variable) and re-build model to evaluate welfare effects
-    update_param!(m, :MIU, optimised_mitigation)
+    update_param!(m, :MIU, [Vector{Missing}(missing, backup_timesteps); optimised_mitigation])
     run(m)
     return m[:welfare, :UTILITY]
 end
