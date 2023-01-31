@@ -28,21 +28,21 @@ function optimise_model(m::Model=get_model(); n_objectives::Int=length(model_yea
     n_objectives + backup_timesteps != length(m.md.dim_dict[:time]) ? error("Number of objectives must correspond to number of timesteps of given model m.") : nothing
 
     # Create lower bound
-    lower_bound = zeros(n_objectives)     
+    lower_bound = [0.039; zeros(n_objectives-1); zeros(n_objectives)]
     # Create upper bound    
-    upper_bound = 1.2 .* ones(n_objectives)                                                     # upper limit 1.2, however in GAMS code this only applies after 2150!
+    upper_bound = [0.039; ones(28); 1.2 .* ones(31); ones(n_objectives)] # assume NETs after 2150 and 3.9% emissions reduction in 2015
     
     # Create initial condition for algorithm
-    starting_point = ones(n_objectives) .* 0.03 # 0.03 as a start for the baseline and for optimised run (miu0 in GAMS code)
+    starting_point = [0.03 .* ones(n_objectives); 0.3 .* ones(n_objectives)] # 0.03 as a start for the baseline and for optimised run (miu0 in GAMS code) & 0.3 as an initial savings rate
     
-    opt = Opt(optimization_algorithm, n_objectives)
+    opt = Opt(optimization_algorithm, 2*n_objectives)
     
     # Set the bounds.
     lower_bounds!(opt, lower_bound)
     upper_bounds!(opt, upper_bound)
     
     # Assign the objective function to maximize.
-    max_objective!(opt, (x, grad) -> construct_objective(m, x, backup_timesteps))
+    max_objective!(opt, (x, grad) -> construct_objective(m, x, backup_timesteps, n_objectives))
     
     # Set termination time.
     maxtime!(opt, stop_time)
@@ -51,10 +51,10 @@ function optimise_model(m::Model=get_model(); n_objectives::Int=length(model_yea
     ftol_rel!(opt, tolerance)
     
     # Optimize model.
-    maximum_objective_value, optimised_policy_vector, convergence_result = optimize(opt, starting_point)
+    maximum_objective_value, optimised_policy_econ_vector, convergence_result = optimize(opt, starting_point)
     
     diagnostic = Dict([("Maximum objective value", maximum_objective_value),
-                       ("Optimised policy vector", optimised_policy_vector),
+                       ("Optimised policy economic vector", optimised_policy_econ_vector),
                        ("Convergence result", convergence_result)])
 
     convergence_result == :FORCED_STOP ? error("Optimisation failed.") : nothing
@@ -69,9 +69,12 @@ Updates emissions control rate `:MIU` in model `m` and returns the resulting uti
 
 See also [`optimise_model`](@ref).
 """
-function construct_objective(m::Model, optimised_mitigation::Array{Float64,1}, backup_timesteps::Int=0)
-    # update MIU (abatement variable) and re-build model to evaluate welfare effects
-    update_param!(m, :MIU, [Vector{Missing}(missing, backup_timesteps); optimised_mitigation])
+function construct_objective(m::Model, optimised_mitigation_saving::Array{Float64,1}, backup_timesteps::Int=0, n_objectives)
+    # update MIU (abatement variable)
+    update_param!(m, :MIU, [Vector{Missing}(missing, backup_timesteps); optimised_mitigation_saving[1:n_objectives]])
+    # update S (savings rate)
+    update_param!(m, :neteconomy, :S, [Vector{Missing}(missing, backup_timesteps); optimised_mitigation_saving[n_objectives+1:end]])
+    # re-build model to evaluate welfare effects
     run(m)
     return m[:welfare, :UTILITY]
 end
