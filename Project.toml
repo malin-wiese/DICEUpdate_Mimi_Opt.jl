@@ -11,6 +11,8 @@ Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 DrWatson = "634d3b9d-ee7a-5ddf-bec9-22491ea816e1"
 Mimi = "e4e893b0-ee5e-52ea-8111-44b3bdec128c"
 NLopt = "76087f3c-5699-56af-9a33-bf431cd00edd"
+PyCall = "438e738f-606a-5dbb-bf0a-cddfbfd45ab0"
+PyPlot = "d330b81b-6aea-500a-939a-2ce795aea3ee"
 XLSX = "fdbf4ff8-1666-58a4-91e7-1b58723a45e0"
 
 [compat]

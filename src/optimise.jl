@@ -30,17 +30,17 @@ function optimise_model(m::Model=get_model(); n_objectives::Int=length(model_yea
     # Create lower bound
     lower_bound = [0.039; zeros(n_objectives-1); zeros(n_objectives)]
     # Create upper bound    
-    upper_bound = [0.039; ones(28); 1.2 .* ones(31); ones(n_objectives)] # assume NETs after 2150 and 3.9% emissions reduction in 2015
+    upper_bound = [0.039; ones(28); 1.2 .* ones(71); ones(n_objectives)] # assume NETs after 2150 and 3.9% emissions reduction in 2015
     
     # Create initial condition for algorithm
     starting_point = [0.03 .* ones(n_objectives); 0.3 .* ones(n_objectives)] # 0.03 as a start for the baseline and for optimised run (miu0 in GAMS code) & 0.3 as an initial savings rate
     
     opt = Opt(optimization_algorithm, 2*n_objectives)
-    
+
     # Set the bounds.
     lower_bounds!(opt, lower_bound)
     upper_bounds!(opt, upper_bound)
-    
+
     # Assign the objective function to maximize.
     max_objective!(opt, (x, grad) -> construct_objective(m, x, backup_timesteps, n_objectives))
     
@@ -69,7 +69,7 @@ Updates emissions control rate `:MIU` in model `m` and returns the resulting uti
 
 See also [`optimise_model`](@ref).
 """
-function construct_objective(m::Model, optimised_mitigation_saving::Array{Float64,1}, backup_timesteps::Int=0, n_objectives)
+function construct_objective(m::Model, optimised_mitigation_saving::Array{Float64,1}, backup_timesteps::Int=0, n_objectives::Int=length(model_years))
     # update MIU (abatement variable)
     update_param!(m, :MIU, [Vector{Missing}(missing, backup_timesteps); optimised_mitigation_saving[1:n_objectives]])
     # update S (savings rate)
