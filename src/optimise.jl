@@ -7,7 +7,7 @@ using Mimi
 """
     optimise_model(m::Model=get_model(); kwargs) -> (m::Model, diagnostic::Dict)
     
-Optimise DICE2016R2 model instance `m` and return the optimised and updated model.
+Optimise DICE2016R2 model instance `m` and return the optimised and updated model together with diagnostic optimisation output.
 
 The model instance `m` is not a mandatory argument. In case it is not provided, the function will use a newly constructed model from [`OptMimiDICE2016R2.get_model`](@ref). It is worth manually passing a model instance if one wishes to optimise a modified version of DICE, e.g. with updated parameters or updated components.
 
@@ -16,9 +16,10 @@ The model instance `m` is not a mandatory argument. In case it is not provided, 
 - `stop_time::Int=640`: time in seconds after which optimisation routine stops, passed to `NLopt.ftol_rel!`
 - `tolerance::Float64=1e-6`: tolerance requirement passed to `NLopt.ftol_rel!`
 - `optimization_algorithm::Symbol=:LN_SBPLX`: algorithm passed to `NLopt.ftol_rel!`
+- `backup_timesteps::Int=0`: amount of time steps in model's time dimension before optimisation sets in
 
 ## Notes
-- Importantly, this implementation of DICE2016R2 has no restrictions on NETs. A rate of emissions reduction `:MIU` of up to 1.2 is allowed throughout.
+- This version of DICE only allows for NETs after 2150, and it immediately allows for a 20% emissions reduction rate (`:MIU=1.2`) in 2155. This constraint can be modified by changing the first half of the `upper_bound` vector.
 - The second return value is purely for diagnostic purposes and comes directly from the NLopt optimisation. In normal usage, it can be ignored.
 
 See also [`construct_objective`](@ref).
@@ -63,9 +64,11 @@ function optimise_model(m::Model=get_model(); n_objectives::Int=length(model_yea
 end
     
 """
-    construct_objective(m::Model, optimised_mitigation::Array{Float64,1}) -> m[:welfare, :UTILITY]
+    construct_objective(m::Model, optimised_mitigation::Array{Float64,1}, backup_timesteps::Int=0, n_objectives::Int=length(model_years)) -> m[:welfare, :UTILITY]
 
-Updates emissions control rate `:MIU` in model `m` and returns the resulting utility vector. This function is called by [`optimise_model`](@ref). `optimised_mitigation` is a vector of `:MIU` values that is being optimised.
+Updates emissions control rate `:MIU` and savings rate `:S` in model `m` and returns the resulting utility vector. This function is called by [`optimise_model`](@ref). `optimised_mitigation_savings` is a vector of `:MIU` and `:S` values that is being optimised.
+
+`backup_timesteps` gives the amount of timesteps that are part of the model's time dimension without being optimised. For example, the FaIR climate module runs since 1765, but DICE only optimises starting in 2015. `n_objectives` gives the amount of timesteps that are being optimised, such that there are `n_objectives` for `:MIU` and `n_objectives` for `:S`. 
 
 See also [`optimise_model`](@ref).
 """
