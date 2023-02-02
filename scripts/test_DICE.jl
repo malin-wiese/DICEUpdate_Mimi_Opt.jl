@@ -50,40 +50,22 @@ fig = plt.figure(figsize=(10, 5))
 ax  = fig.add_subplot(111)
 ax.grid()
 
-xlabel="Year"
-yll1 = get_labels_lims(vars[1])
+ax.set_xlabel("Year")
+ax.set_ylabel("Temperature")
+ax.set_xlim((2015, 2515))
+ax.set_ylim((0, 10))
 
-ax.set_xlabel(xlabel)
-ax.set_ylabel(yll1[1])
-ax.set_xlim(xlims)
-ax.set_ylim(yll1[2])
+ax2 = ax.twinx()
+ax2.set_ylabel("Emissions")
+ax2.set_ylim((-20, 80))
 
-# variable that determines how many trajectories are plotted on first ax
-# initially assume only one plotted variable
-n_traj = length(result_keys)
-
-if length(vars) == 2
-    yll2 = get_labels_lims(vars[2])
-    ax2 = ax.twinx()
-    ax2.set_ylabel(yll2[1])
-    ax2.set_ylim(yll2[2])
-    n_traj = Int(length(result_keys)/2)
-end
-
-for k in 1:n_traj
-    key = result_keys[k]
-    ax.plot(t, results[key], label=key)
-end
-
-if length(vars) == 2
-    for k in n_traj+1:length(result_keys)
-        key = result_keys[k]
-        ax2.plot(t, results[key], ":", label=key)
-    end
-end 
+ax.plot(t, T_opt, label="Optimised T")
+ax2.plot(t, E_opt, ":", label="Optimised E")
+ax.plot(t, T_base, label="Baseline T")
+ax2.plot(t, E_base, ":", label="Baseline T")
 
 lines, labels = ax.get_legend_handles_labels()
 lines2, labels2 = ax2.get_legend_handles_labels()
 ax.legend(vcat(lines, lines2), vcat(labels, labels2), loc=1)
 
-display(plt.gcf())
+fig.savefig("plots/Current_Plot.pdf", bbox_inches="tight")
