@@ -19,7 +19,7 @@ The model instance `m` is not a mandatory argument. In case it is not provided, 
 - `backup_timesteps::Int=0`: amount of time steps in model's time dimension before optimisation sets in
 
 ## Notes
-- This version of DICE only allows for NETs after 2150, and it immediately allows for a 20% emissions reduction rate (`:MIU=1.2`) in 2155. This constraint can be modified by changing the first half of the `upper_bound` vector.
+- This version of DICE only allows for NETs after 2150, and it immediately allows for a 120% emissions reduction rate (`:MIU=1.2`, meaning 20% NETs) in 2155. This constraint can be modified by changing the first half of the `upper_bound` vector.
 - The second return value is purely for diagnostic purposes and comes directly from the NLopt optimisation. In normal usage, it can be ignored.
 
 See also [`construct_objective`](@ref).
@@ -31,7 +31,7 @@ function optimise_model(m::Model=get_model(); n_objectives::Int=length(model_yea
     # Create lower bound
     lower_bound = [0.039; zeros(n_objectives-1); zeros(n_objectives)]
     # Create upper bound    
-    upper_bound = [0.039; ones(28); 1.2 .* ones(71); ones(n_objectives)] # assume NETs after 2150 and 3.9% emissions reduction in 2015
+    upper_bound = [0.039; ones(28); 1.2 .* ones(n_objectives-29); ones(n_objectives)] # assume NETs after 2150 and 3.9% emissions reduction in 2015
     
     # Create initial condition for algorithm
     starting_point = [0.03 .* ones(n_objectives); 0.3 .* ones(n_objectives)] # 0.03 as a start for the baseline and for optimised run (miu0 in GAMS code) & 0.3 as an initial savings rate
