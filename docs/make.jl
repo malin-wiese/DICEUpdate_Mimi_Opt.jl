@@ -14,7 +14,7 @@ makedocs(;
     # This argument is only so that the sequence of pages in the sidebar is configured
     # By default all markdown files in `docs/src` are expanded and included.
     pages = [
-        "Introduction" => "index.md",
+        "Introduction" => Any["Introduction" => "index.md", "commentary.md"],
         "Using OptMimiDICE2016R2" => "usage.md",
         "API" => "API.md",
         ],
