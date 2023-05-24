@@ -2,7 +2,7 @@
 
 julia_version = "1.8.3"
 manifest_format = "2.0"
-project_hash = "af7e08a715ce083db788f273fe2bdd07aafeec00"
+project_hash = "9416711ff3c95ee96bf638bee459372472fc7811"
 
 [[deps.ANSIColoredPrinters]]
 git-tree-sha1 = "574baf8110975760d391c710b6341da1afa48d8c"
@@ -971,10 +971,10 @@ uuid = "efce3f68-66dc-5838-9240-27a6d6f5f9b6"
 version = "0.5.5"
 
 [[deps.XLSX]]
-deps = ["Dates", "EzXML", "Printf", "Tables", "ZipFile"]
-git-tree-sha1 = "7fa8618da5c27fdab2ceebdff1da8918c8cd8b5d"
+deps = ["Artifacts", "Dates", "EzXML", "Printf", "Tables", "ZipFile"]
+git-tree-sha1 = "ccd1adf7d0b22f762e1058a8d73677e7bd2a7274"
 uuid = "fdbf4ff8-1666-58a4-91e7-1b58723a45e0"
-version = "0.7.10"
+version = "0.8.4"
 
 [[deps.XML2_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Libiconv_jll", "Pkg", "Zlib_jll"]
@@ -984,9 +984,9 @@ version = "2.9.14+0"
 
 [[deps.ZipFile]]
 deps = ["Libdl", "Printf", "Zlib_jll"]
-git-tree-sha1 = "3593e69e469d2111389a9bd06bac1f3d730ac6de"
+git-tree-sha1 = "f492b7fe1698e623024e873244f10d89c95c340a"
 uuid = "a5390f91-8eb1-5f08-bee0-b1d1ffed6cea"
-version = "0.9.4"
+version = "0.10.1"
 
 [[deps.Zlib_jll]]
 deps = ["Libdl"]
