@@ -19,7 +19,7 @@ include("components/neteconomy_component.jl")
 include("components/welfare_component.jl")
 include("optimise.jl")
 
-export constructdice, get_model, optimise_model
+export constructdice, get_model, optimise_model, compute_scc
 
 const model_years = 2015:5:2510
 

@@ -5,7 +5,8 @@ own license. Credits for most of the work go to Alexandre Pavlov and his
 implementation of MimiDICE2016R2.jl (as well as Lisa Rennels, Cora Kingdon and David Anthoff), which is also licensed under the
 MIT license.
 
->Copyright (c) 2022 felixschaumann
+> Original work: Copyright (c) 2019 AlexandrePavlov
+> Additional work: Copyright (c) 2022, 2023 felixschaumann
 >
 >Permission is hereby granted, free of charge, to any person obtaining a copy
 >of this software and associated documentation files (the "Software"), to deal
