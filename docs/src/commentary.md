@@ -50,26 +50,20 @@ William Nordhaus describes the most important policy implications of the DICE mo
 
 In a paper that discusses the policy impact of William Nordhaus, [Aldy2020](@citet) differentiate between (1) "direct participation in the policy world", (2) "directly influencing public policies", and (3) "indirectly informing public policy". According to the authors, the main impact on climate policy was through (3), by subtly influencing the discourse around policy stringency and options.
 
-The DICE model shaped the climate debate by framing climate policy as a trade-off between economic growth and climate change mitigation.
+The DICE model shaped the climate debate by framing climate policy as a trade-off between economic growth and climate change mitigation. Every dollar spent on emissions reduction is modelled as being at the expense of consumption or investment in the capital stock. Given that investment in the capital stock leads to higher economic output and hence more economic means both for consumption and emissions reductions, the basic structure of DICE frames the climate problem as a question of "how much mitigation to do when?". 
+Nordhaus himself the question about the timing of emissions reduction with the concept of a _climate-policy ramp_ — where mitigation efforts start with only moderately stringent climate policy, but get more stringent over time [Nordhaus2007](@citep). In fact, Nordhaus concluded in his early work that little changes to the energy system are required, because the climate change problem can more efficiently be tackled by richer future generations [Aldy2020](@citep).
 
-As part of the direct influence on climate policy (2), the DICE model has been used to estimate social cost of carbon (SCC) figures to be used for assessing the climate impact of policy proposals.
+A related policy-relevant concept stemming from the DICE model is the so-called "optimal level" of global warming. The output of DICE is a path of optimised emission reduction rates, which translates into a path of global mean temperatures. The peak of this temperature curve is often interpreted as the "optimal level of warming" and compared to levels of warming embodied in climate targets, such as the 1.5 and 2˚C targets embodied in the Paris Agreement. This contrast between international climate targets and DICE-based "optimal warming levels" of more than 3˚C [Nordhaus2019](@citep), has been the source of much [Criticism](@ref) and ensuing works (see [Haensel2020](@citet) or [Kikstra2023](@citet)).
 
-- see [Aldy2020](@citet)
-- quantifying an externality arising from a market failure &rarr; implicit policy recommendation to correct this market failure by internalising externality (e.g. through carbon pricing)
-- shaping the policy discourse: focus on market mechanisms to correct for market failure
-- implicit: focus on economic growth as a policy goal
-- implicit: globally aggregated perspective puts focus on globally agreed solution without emphasis on distributional aspects and global inequalities
-- guideline for international climate negotiations (e.g. 2°C target)
-- scenario analysis
-- early recommendation: to invest in conventional capital and only later in abatement (see Aldy and Stevens), keep the energy system as it is
-- quantifying the costs of climate change &rarr; implicit policy recommendation to avoid these costs (e.g. through mitigation)
-- estimating social cost of carbon: guideline for carbon pricing and regulatory input (e.g. in US or Germany)
+Because the DICE model conceptualises CO$_2$ emissions as a global externality which is quantified in dollars, internalising the externality through a price on CO$_2$ emissions is a natural consequence. Nordhaus pioneered the externality view of climate change [Yang2020](@citep) and was an early proponent of putting a price on carbon dioxide emissions, e.g. through a carbon tax [Nobel2018b](@citep). Thereby, the DICE model helped to popularise market-based policies for addressing climate change.
 
-The DICE model is 
+As part of the direct influence on climate policy (2), the DICE model has been used to estimate social cost of carbon (SCC) figures to be used for assessing the climate impact of policy proposals. Most prominently, it was used as one of three models for setting the SCC numbers to be used by all US government agencies [Metcalf2017](@citep).
+
+The DICE model has influenced policy in multiple ways, which are facilitated by its model structure. Conversely, there are also aspects of climate policy that the model is not able to address — and these will get less attention. Among the issues that are more hidden than illuminated by the DICE model are distributional aspects of any kind — be they between or within countries, in terms of emissions or consumption or damages. Similarly, the choice of a discounted utilitarian welfare function whose sole input is consumption measures all policies in terms of their consumption output — at the expense of other policy goals that could plausibly form part of the social planner's welfare function.
 
 ## Expectations
 
-"When we speak about optimal policy below, we thus refer to using the model in that way, namely to quantify how (different) normative assumptions shape variables like carbon taxes, temperature limits, and emission paths." [Nobel2018](@citep)
+"When we speak about optimal policy below, we thus refer to using the model in that way, namely to quantify how (different) normative assumptions shape variables like carbon taxes, temperature limits, and emission paths." [Nobel2018b](@citep)
 
 ## References
 

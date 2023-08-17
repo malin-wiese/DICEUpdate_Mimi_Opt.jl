@@ -5,10 +5,11 @@ Due to its open-source nature, the DICE model has been the subject of much debat
 ## Criticism
 
 - [Azar1998](@citet)
+-
 
 ## Extensions
-
-
+- [Haensel2020](@citet)
+- 
 
 ## Evaluations
 
@@ -17,10 +18,11 @@ Due to its open-source nature, the DICE model has been the subject of much debat
 - [Millner2016](@citet)
 - [Ackerman2009](@citet)
 - [Beck2018](@citet)
+-
 
 ## Resources
 - [Scientific Background Nobel Price for Romer & Nordhaus (2018)](https://www.nobelprize.org/uploads/2018/10/advanced-economicsciencesprize2018.pdf)
-- model description in [Nordhaus2023](@citet)
+- model description in [Barrage2023](@citet)
 - more model descriptions and discussion papers
 - link to newer model version
 

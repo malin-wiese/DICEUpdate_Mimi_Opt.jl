@@ -25,8 +25,8 @@ makedocs(bib;
         "References" => "references.md",
         ],
     # Don't worry about what `CI` does in this line.
-    # format = Documenter.HTML(prettyurls = CI),
-    format = Documenter.LaTeX(),
+    format = Documenter.HTML(prettyurls = CI),
+    # format = Documenter.LaTeX(),
 )
 
 @info "Deploying Documentation"
