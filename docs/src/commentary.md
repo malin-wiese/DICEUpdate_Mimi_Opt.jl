@@ -1,10 +1,31 @@
 # Model commentary for DICE
 
+While the DICE model is quite simple in terms of its equations, the embedded assumptions and its historical context are not necessarily easy to understand. 
+On this page, we are therefore providing accessible information on the DICE model's history, structure, ethical aspects, policy implications, uncertainties, and possible expectations in the form of a written model commentary — a concept going back to [Maeki2009](@citet).
+
 ### What is a model commentary?
+
+A model commentary is the sum of all model-related communication by the modeller. It can, and should, take different forms for different audiences—both in terms of the level of detail and in terms of the choice of medium: "Model commentaries are contextual" [Maeki2009](@citet).
+
+Here, we illustrate one possible model commentary for DICE in written form, addressing an audience that doesn't necessarily have an economics background.
+
+Despite being fundamentally contextual, we think that an informative and comprehensive model commentary for IAMs should always include the following aspects:
+
+- In which context did the model emerge?
+- What are the crucial assumptions of the model?
+- How does the structure of the model shape its proper domain of application?
+- Which questions can be answered with the model?
+- Which uncertainties should be taken into account when interpreting model results?
+- Which ethical aspects are embodied or touched by the model?
+- What are possible policy implications of the model results?
 
 ## History of DICE
 
-The DICE model was developed by William Nordhaus [Nordhaus1992](@cite). See also Nobel Prize scientific background
+The DICE model was developed by William Nordhaus. The underlying idea of developing a model that combines economic growth modelling with simple models of the climate system emerged from Nordhaus's research stay at the IIASA research center in Austria in the early 1970s [Nobel2018c](@citep).
+It then took almost two decades until the first fully coupled cost-benefit version of the DICE model was published in _Science_ [Nordhaus1992](@citep).
+Since then, DICE has been updated several times, but the basic model structure stayed the same (for the latest version, see [Barrage2023](@citet)). Because the model has been openly available since its beginnings, many modifications and extensions of DICE have been proposed (for a selection, see [Extensions](@ref)).
+
+For a general history of IAMs, see [vanBeek2020](@citet). For a more specific tracing of the influence of the emergence cost-benefit thinking on climate change and the resulting policy impact, see [Randalls2011](@citet). A more methodological history of the different model versions that preceded DICE, and how it has been put to use since, can be found in [Nobel2018b](@citet).
 
 ## Modelling approach
 
@@ -24,7 +45,7 @@ As the DICE model only features a single good, it also has no concept of differe
 
 Similarly, the DICE model does not explicitly resolve non-market goods. That is, the capital stock only consists of "manufactured capital", which can be used to produce goods and services that are sold on markets. There is no concept of "natural capital", which would be needed to produce non-market goods like clean air or biodiversity. Also the role of natural capital in producing market goods is not represented in the DICE model (see [Extensions](@ref)).
 
-- deterministic formulation not allowing for risk and uncertainty or catastrophic outcomes?
+<!-- - deterministic formulation not allowing for risk and uncertainty or catastrophic outcomes? -->
 
 ## Ethical issues
 
@@ -36,9 +57,9 @@ Second, there are more implicitly normative aspects in the setting of [System bo
 
 Third, the DICE model is based on a range of assumptions and projections about the future development of important socioeconomic variables. These include economic productivity, global population, technological progress in low-carbon technologies, among others. Again, these projections are not explicitly normative and based on best-guess evidence from other sources. However, they can still implicitly contain normative assumptions. For example, the required future levels of GDP are politically debated and this political debate is sidelined by the DICE model's reliance on GDP projections. Similarly, the choice of modelling technological progress in low-carbon technologies as exogenous, i.e. developing with a fixed rate independent of climate policy, is normative in that it restricts the range of possible mitigation pathways at the social planner's disposal (see [Extensions](@ref)).
 
-- assumed rationality of social planner?
+<!-- - assumed rationality of social planner? -->
 
-## Policy impact
+## Policy implications
 
 William Nordhaus describes the most important policy implications of the DICE model as follows (see [Nordhaus2012](@citet), p. 1095):
 
@@ -57,9 +78,27 @@ A related policy-relevant concept stemming from the DICE model is the so-called 
 
 Because the DICE model conceptualises CO$_2$ emissions as a global externality which is quantified in dollars, internalising the externality through a price on CO$_2$ emissions is a natural consequence. Nordhaus pioneered the externality view of climate change [Yang2020](@citep) and was an early proponent of putting a price on carbon dioxide emissions, e.g. through a carbon tax [Nobel2018b](@citep). Thereby, the DICE model helped to popularise market-based policies for addressing climate change.
 
-As part of the direct influence on climate policy (2), the DICE model has been used to estimate social cost of carbon (SCC) figures to be used for assessing the climate impact of policy proposals. Most prominently, it was used as one of three models for setting the SCC numbers to be used by all US government agencies [Metcalf2017](@citep).
+As part of the direct influence on climate policy (2 in the classification of [Aldy2020](@citet)), the DICE model has been used to estimate social cost of carbon (SCC) figures to be used for assessing the climate impact of policy proposals. Most prominently, it was used as one of three models for setting the SCC numbers to be used by all US government agencies [Metcalf2017](@citep).
+The DICE model was instrumental of establishing the concept of the SCC as a key concept of climate economics. Because of its accessible interpretation of "the damages caused by the additional emission of a ton of CO$_2$", it has also served as yardstick for carbon prices, embraced by policy makers and activists.
 
-The DICE model has influenced policy in multiple ways, which are facilitated by its model structure. Conversely, there are also aspects of climate policy that the model is not able to address — and these will get less attention. Among the issues that are more hidden than illuminated by the DICE model are distributional aspects of any kind — be they between or within countries, in terms of emissions or consumption or damages. Similarly, the choice of a discounted utilitarian welfare function whose sole input is consumption measures all policies in terms of their consumption output — at the expense of other policy goals that could plausibly form part of the social planner's welfare function.
+Thus, there are many ways in which the modelling results of DICE have influenced climate policy.
+Conversely, there are aspects of climate policy that the model is not able to address — and which have consequently received less attention by the climate policy discourse that the DICE model has helped to shape. 
+Among the issues that are more hidden than illuminated by the DICE model are distributional aspects of any kind — be they between or within countries, in terms of emissions, consumption or damages. Similarly, the choice of a discounted utilitarian welfare function whose sole input is consumption measures all policies in terms of their consumption output — at the expense of other policy goals that could plausibly form part of the social planner's welfare function.
+
+## Uncertainties?
+
+As a simple, aggregated model, DICE is full of uncertain parameters.
+
+The reaction of the Earth system to CO$_2$ emissions is modelled as a diffusion of carbon into the ocean and global warming resulting from the residual carbon dioxide in the atmosphere. Both the first aspect—the carbon cycle—and the second—climate sensitivity—are full of uncertainties. For an evaluation of the DICE carbon cycle and climate module, see [Dietz2021](@citet). For background on climate sensitivity, see [Sherwood2020](@citet).
+Related, there is uncertainty about potential catastrophic events. Part of this debate is framed in terms of tipping points (e.g., [Lemoine2016](@citet) or [Dietz2021a](@citet)), part of it in terms of "fat tails" [Weitzman2009](@citep).
+
+Climate damages in DICE are a consequence of global mean temperature increase. The damage function itself is highly uncertain [Piontek2021](@citep), such that different damage modelling choices lead to widely different policy recommendations [Wijst2021](@citep).
+
+In DICE, climate damages are subtracted from economic production in a given year. First, there is uncertainty about whether this assumption of economic damages occurring only in a single time period is justified, or whether damages are persist in the economy (see [Moore2015](@citet)). Second, there is substantial uncertainty about the amount of future economic production that is affected by climate damages [@Christensen2018]. These uncertainties about future economic growth are even more pronounced when considering different world regions separately [Dellink2017](@citep).
+
+The cost of reducing CO$_2$ emissions is similarly subtracted from economic production, and these cost developments are also uncertain [Gillingham2018a](@citep). There is additional uncertainty about how to model the effect of undertaken emissions reduction on the cost of future emissions reduction, e.g. by directed technological change [Acemoglu2016](@citep).
+
+Lastly, there are substantial uncertainties about how to calibrate the objective function of the model. Irrespective of whether one takes a descriptive or normative approach, discounting parameters [Drupp2018](@citep) and substitutabilities [Neumayer1999](@citep) between human-made and natural capital are inherently uncertain.
 
 ## Expectations
 
