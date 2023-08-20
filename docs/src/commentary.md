@@ -5,7 +5,7 @@ On this page, we are therefore providing accessible information on the DICE mode
 
 ### What is a model commentary?
 
-A model commentary is the sum of all model-related communication by the modeller. It can, and should, take different forms for different audiences—both in terms of the level of detail and in terms of the choice of medium: "Model commentaries are contextual" [Maeki2009](@citet).
+A model commentary is the sum of all model-related communication by the modeller. It can, and should, take different forms for different audiences—both in terms of the level of detail and in terms of the choice of medium: "Model commentaries are contextual" [Maeki2009](@citep).
 
 Here, we illustrate one possible model commentary for DICE in written form, addressing an audience that doesn't necessarily have an economics background.
 
@@ -45,8 +45,6 @@ As the DICE model only features a single good, it also has no concept of differe
 
 Similarly, the DICE model does not explicitly resolve non-market goods. That is, the capital stock only consists of "manufactured capital", which can be used to produce goods and services that are sold on markets. There is no concept of "natural capital", which would be needed to produce non-market goods like clean air or biodiversity. Also the role of natural capital in producing market goods is not represented in the DICE model (see [Extensions](@ref)).
 
-<!-- - deterministic formulation not allowing for risk and uncertainty or catastrophic outcomes? -->
-
 ## Ethical issues
 
 Being a welfare-optimising economic growth model, the DICE model is based on a range of normative choices. 
@@ -56,8 +54,6 @@ First of all, the assumed social welfare function is based on the consequentiali
 Second, there are more implicitly normative aspects in the setting of [System boundaries](@ref). For example, which kinds of climate-change-induced damages are included into the welfare assessment? Non-market goods are excluded in the DICE model, such that biodiversity loss is not considered. The same goes for many other climate change damages. Despite this being a consequence of the difficulty of quantifying these damage channels, and not necessarily a deliberate normative choice to exclude them, it still amounts to a normatively relevant modelling choice.
 
 Third, the DICE model is based on a range of assumptions and projections about the future development of important socioeconomic variables. These include economic productivity, global population, technological progress in low-carbon technologies, among others. Again, these projections are not explicitly normative and based on best-guess evidence from other sources. However, they can still implicitly contain normative assumptions. For example, the required future levels of GDP are politically debated and this political debate is sidelined by the DICE model's reliance on GDP projections. Similarly, the choice of modelling technological progress in low-carbon technologies as exogenous, i.e. developing with a fixed rate independent of climate policy, is normative in that it restricts the range of possible mitigation pathways at the social planner's disposal (see [Extensions](@ref)).
-
-<!-- - assumed rationality of social planner? -->
 
 ## Policy implications
 
@@ -85,7 +81,7 @@ Thus, there are many ways in which the modelling results of DICE have influenced
 Conversely, there are aspects of climate policy that the model is not able to address — and which have consequently received less attention by the climate policy discourse that the DICE model has helped to shape. 
 Among the issues that are more hidden than illuminated by the DICE model are distributional aspects of any kind — be they between or within countries, in terms of emissions, consumption or damages. Similarly, the choice of a discounted utilitarian welfare function whose sole input is consumption measures all policies in terms of their consumption output — at the expense of other policy goals that could plausibly form part of the social planner's welfare function.
 
-## Uncertainties?
+## Uncertainties
 
 As a simple, aggregated model, DICE is full of uncertain parameters.
 
@@ -102,7 +98,32 @@ Lastly, there are substantial uncertainties about how to calibrate the objective
 
 ## Expectations
 
-"When we speak about optimal policy below, we thus refer to using the model in that way, namely to quantify how (different) normative assumptions shape variables like carbon taxes, temperature limits, and emission paths." [Nobel2018b](@citep)
+Potentially, there is an infinite amount of expectations that users could have for a model such as DICE. Here, we pick three illustrative expectations in order to give a sense of what can or cannot be expected of DICE.
+
+#### 1) Representation of the world economy in the context of climate change
+
+A popular view on modelling defines a model as a representation of a "target system", which for DICE would be the world economy in the context of climate change.
+Based on this idea, users could expect the DICE model to be an good representation of this target system and judge the model's performance against that.
+But the DICE model is not a good representation of the world economy at all — it has only one world region, one economic sector, a single produced good. It has no representation of low-carbon technologies, no climate policy instrument beyond a carbon price and it assumes perfectly competitive markets that behave as if they had perfect foresight.
+Clearly, the economic elements of the DICE model are not built with the aim of being a realistic representation of their target system. The other expectations elaborate on this point further.
+Nevertheless, there are some elements of the DICE model that can be judged by the realisticness of representation they achieve — under existing contraints of simplicity and tractability. Take the climate module, which for this DICE2016R2 has been shown to be a poor representation of how the real-world climate system is known to behave [Dietz2021](@citep). Subsequent updates of DICE like [Haensel2020](@citet) or [Barrage2023](@citet) have improved on these dynamics, making this part of the model a better representation of its target system.
+
+
+#### 2) Quantitative guidance on costs and benefits of climate policy
+
+A more instrumental expectation might be based on seeing DICE as a tool for a certain climate policy purpose. Concretely, many policymakers are looking for quantitative guidance on the costs and benefits of reducing CO$_2$ emissions in a certain manner.
+Implicitly, [Pindyck2017](@citet) voices this expectation when claiming that IAMs “have no empirical (or even theoretical) grounding and thus [...] cannot be used to provide any kind of reliable quantitative policy guidance” (p. 103). Pindyck concludes that “economists should not claim that IAMs can forecast climate change and its impact or that IAMs can tell us the magnitude of the SCC” (p. 112). These quotes reveal the expectation that an IAM should provide quantitative guidance on the SCC and accurate forecasts to an audience of policymakers, while being empirically (and theoretically) grounded. 
+To fulfil this expectation, DICE need not necessarily be a perfectly realistic representation of its target; instead, it would have to cover all decision-relevant aspects and embody the best available evidence on all processes that could affect cost and benefit calculations.
+For several reasons, DICE can not fully live up to this. First of all, forecasting and quantitative accuracy do not form part of its stated goals [Nordhaus2012](@citep). Consequently, DICE prioritises tractability and transparency over detail [Nordhaus2011](@citep). Secondly, the target system encompasses the world economy, the climate system and climate decision-making – all of it on a centennial timescale. Due to the complex nature of the target and associated uncertainties, accurate forecasting seems hardly achievable in principle.
+Estimate of the policy-relevant SCC can illustrate this point. The SCC is the sum of the economic damage of an additionally emitted ton of CO$_2$ — seemingly an empirical quantity.
+But on the one hand, this empirical estimation is highly sensitive to modelling choices, such as whether to include natural capital [BastienOlvera2021a](@citep) or whether to assume that economic damages persist for more than a single time period [Moore2015](@citep).
+On the other hand, the SCC is also highly dependent on normative choices, for example on the discount rate [Rennert2022](@citep) or the valuation of damages occurring in an economically unequal world [Anthoff2019](@citep).
+
+#### 3) Learning about the behaviour of the model and its target system
+
+A third expectation is linked to the purpose of learning about the behaviour of the model and its target system, for example by calculating impacts of alternative assumptions. This expectation could be raised by model users who want to understand qualitative dynamics around climate policy or investigate the importance of different mechanisms or issues. Users could for example be academics with an epistemic interest in the model behaviour. However, they could also be political institutions or think tanks who use the model to highlight the relevance of a certain issue linked to their political agenda.
+DICE does indeed provide a modelling framework that works well as a tool for comparing the effect of different assumptions, through its tractability and open-source code. It is able to tell a range of different stories about the world, but the interpretation of them is often ambiguous.
+Over time, many studies have made use of this strength of DICE by building modified model versions (see [Extensions](@ref)) and comparing how these modifications affect policy-relevant outcomes such as the SCC. While these model versions do not necessarily aim to make the model a better representation of reality and should not be interpreted as such, they can facilitate learning about the importance of different processes and mechanisms for climate policy evaluation.
 
 ## References
 
